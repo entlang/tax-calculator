@@ -1,0 +1,64 @@
+{
+    "rates": [
+        {
+            "year": "2016-2017",
+            "data": [
+                {
+                    "min": 0,
+                    "max": 18200,
+                    "description": "Nil"
+                },
+                {
+                    "min": 18201,
+                    "max": 37000,
+                    "description": "19c for each $1 over $18,200"
+                },
+                {
+                    "min": 37001,
+                    "max": 87000,
+                    "description": "$3,572 plus 32.5c for each $1 over $37,000"
+                },
+                {
+                    "min": 87001,
+                    "max": 180000,
+                    "description": "$19,822 plus 37c for each $1 over $87,000"
+                },
+                {
+                    "min": 180001,
+                    "max": null,
+                    "description": "$54,232 plus 45c for each $1 over $180,000"
+                }
+            ]
+        },
+        {
+            "year":  "2017-2018",
+            "data": [
+                {
+                    "min": 0,
+                    "max": 18200,
+                    "description": "Nil"
+                },
+                {
+                    "min": 18201,
+                    "max": 37000,
+                    "description": "19c for each $1 over $18,200"
+                },
+                {
+                    "min": 37001,
+                    "max": 87000,
+                    "description": "$3,572 plus 32.5c for each $1 over $37,000"
+                },
+                {
+                    "min": 87001,
+                    "max": 180000,
+                    "description": "$19,822 plus 37c for each $1 over $87,000"
+                },
+                {
+                    "min": 180001,
+                    "max": null,
+                    "description": "$54,232 plus 45c for each $1 over $180,000"
+                }
+            ]
+        }
+    ]
+}

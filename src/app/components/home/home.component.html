@@ -1,0 +1,38 @@
+<mat-card>
+
+  <form class="tax-calculation-form">
+    <div>
+      <label>Superannuation:</label>
+      <mat-form-field>
+        <input matInput type="number">
+      </mat-form-field>
+      <span>%</span>
+    </div>
+
+    <div>
+      <label>Income</label>
+      <mat-form-field>
+        <input matInput type="number" [(value)]="salaryAmount">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select [(value)]="selectedTimeframe.value">
+          <mat-option *ngFor="let timeframe of timeframes" [value]="timeframe.value">
+            {{ timeframe.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-select [(value)]="selectedTaxRate">
+        <mat-option *ngFor="let taxRate of taxRates" [value]="taxRate.year">
+          {{ taxRate.year }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+  </form>
+
+</mat-card>
