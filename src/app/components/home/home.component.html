@@ -1,38 +1,89 @@
-<mat-card>
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="10px">
 
-  <form class="tax-calculation-form">
-    <div>
-      <label>Superannuation:</label>
-      <mat-form-field>
-        <input matInput type="number">
-      </mat-form-field>
-      <span>%</span>
+  <mat-card fxFlex="40">
+    <h2 class="title">Income</h2>
+    <form [formGroup]="taxForm" validate fxLayout="column" fxLayoutGap="10px">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <label>Superannuation:</label>
+        <div>
+          <mat-form-field>
+            <input matInput type="number" [(ngModel)]="superannuation" formControlName="super">
+          </mat-form-field>
+          <span>%</span>
+        </div>
+      </div>
+
+      <div *ngIf="taxForm.controls.super.invalid && (taxForm.controls.super.dirty || taxForm.controls.super.touched)" class="error">
+        <span *ngIf="taxForm.controls.super.errors.required">*SupperAnnuation is required</span>
+        <span *ngIf="taxForm.controls.super.errors.bellowMin">*{{taxForm.controls.super.errors.bellowMin.message}}</span>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <label>Income:</label>
+        <div fxLayout fxLayoutWrap="wrap">
+          <mat-form-field>
+            <input matInput type="number" [(ngModel)]="income" formControlName="income">
+          </mat-form-field>
+          <mat-checkbox (change)="isSuperChecked = $event.checked">With superanuation</mat-checkbox>
+        </div>
+      </div>
+
+      <div *ngIf="taxForm.controls.income.invalid && (taxForm.controls.income.dirty || taxForm.controls.income.touched)" class="error">
+        <span *ngIf="taxForm.controls.income.errors.required">*Income is required</span>
+        <span *ngIf="taxForm.controls.income.errors?.bellowMin">*{{taxForm.controls.income.errors?.bellowMin.message}}</span>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <label>Year:</label>
+        <mat-form-field>
+          <mat-select [(value)]="selectedTaxYear">
+            <mat-option *ngFor="let taxRate of taxRates" [value]="taxRate.year">
+              {{ taxRate.year }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" [disabled]="!taxForm.valid" (click)="calculateTax(grossIncome, isSuperChecked)">Calculate</button>
+    </form>
+
+  </mat-card>
+
+  <mat-card fxFlex="grow">
+    <h2 class="title">Result</h2>
+    <div *ngIf="showResult">
+      <div fxLayout="column" fxLayoutGap="10px">
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="10px">
+          <div>Superannuation​:</div>
+          <div>${{superAmount | number}}</div>
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="10px" *ngIf="!showGrossWithSuper">
+          <div>Gross:</div>
+          <div>${{grossWithoutSuper | number}}</div>
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="10px" *ngIf="showGrossWithSuper">
+          <div>Gross​ ​+​ ​Superannuation​:</div>
+          <div>${{grossPlusSuper | number}}</div>
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="10px">
+          <div>Tax:</div>
+          <div>${{taxedAmount | number}}</div>
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="10px">
+          <div>Net:</div>
+          <div>${{netAmount | number}}</div>
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="10px">
+          <div>Net​ ​+​ ​Superannuation​:</div>
+          <div>${{netPlusSuper | number}}</div>
+        </div>
+        <div class="line"></div>
+        <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+          <div>* Marginal tax rate:</div>
+          <div>* {{taxInfo?.description}}</div>
+        </div>
+      </div>
     </div>
+  </mat-card>
 
-    <div>
-      <label>Income</label>
-      <mat-form-field>
-        <input matInput type="number" [(value)]="salaryAmount">
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-select [(value)]="selectedTimeframe.value">
-          <mat-option *ngFor="let timeframe of timeframes" [value]="timeframe.value">
-            {{ timeframe.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <mat-form-field>
-      <mat-select [(value)]="selectedTaxRate">
-        <mat-option *ngFor="let taxRate of taxRates" [value]="taxRate.year">
-          {{ taxRate.year }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-
-  </form>
-
-</mat-card>
+</div>

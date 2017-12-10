@@ -2,12 +2,9 @@
   <mat-toolbar fxLayout="row" fxLayoutAlign="center center" color="primary">
     <span>Tax Estimation Calculator</span>
   </mat-toolbar>
+  
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 
-  <router-outlet></router-outlet>
-
-  <span class="done">
-    <button mat-fab>
-      <mat-icon>check circle</mat-icon>
-    </button>
-  </span>
 </div>

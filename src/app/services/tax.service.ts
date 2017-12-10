@@ -5,14 +5,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import { map } from 'rxjs/operators';
 
+import { TaxRate } from '../models/taxrate';
+
 @Injectable()
 export class TaxService {
 
   constructor(private http: HttpClient) { }
 
-  getTaxRates() {
+  getTaxRates(): Observable<TaxRate[]> {
     return this.http.get('../assets/json/tax_rates.json').pipe(
-      map((res: Response) => res))
+      map((res: Response) => res.rates))
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 }
