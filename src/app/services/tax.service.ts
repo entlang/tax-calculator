@@ -14,7 +14,9 @@ export class TaxService {
 
   getTaxRates(): Observable<TaxRate[]> {
     return this.http.get('../assets/json/tax_rates.json').pipe(
-      map((res: Response) => res.rates))
+      map((res: any) => {
+        return res.rates;
+      }))
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 }

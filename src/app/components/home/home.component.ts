@@ -99,14 +99,12 @@ export class HomeComponent implements OnInit {
   // validators
   private superAnnuationValidator(control: FormControl) {
     const superann = control.value;
-    if (superann) {
-      if (superann < superAnnuationMinValue) {
-        return {
-          bellowMin: {
-            message: `Superannuation must be >=${superAnnuationMinValue}%.`
-          }
-        };
-      }
+    if (superann < superAnnuationMinValue) {
+      return {
+        bellowMin: {
+          message: `Superannuation must be >=${superAnnuationMinValue}%.`
+        }
+      };
     }
     return null;
   }
